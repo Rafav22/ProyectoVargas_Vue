@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Proyecto Vue CDN - Tabla</title>
+  
+  <style>
+    .my-table {
+      background-color: #40b712;
+      color: #333;
+    }
+
+    .highlight {
+      background-color: #ffcc00;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <my-table :data="tableData" :tableClass="tableClass" :rowClass="rowClass" :cellClass="cellClass"></my-table>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // Componente de la tabla
+    Vue.component('my-table', {
+      props: {
+        data: {
+          type: Array,
+          required: true
+        },
+        tableClass: {
+          type: String,
+          default: 'my-table'
+        },
+        rowClass: {
+          type: String,
+          default: ''
+        },
+        cellClass: {
+          type: String,
+          default: ''
+        }
+      },
+      template: `
+        <table :class="tableClass">
+          <tbody>
+            <tr v-for="(row, index) in data" :key="index" :class="rowClass">
+              <td v-for="(cell, cellIndex) in row" :key="cellIndex" :class="cellClass">{{ cell }}</td>
+            </tr>
+          </tbody>
+        </table>
+      `
+    });
+
+    // Instancia de Vue
+    new Vue({
+      el: '#app',
+      data: {
+        tableData: [
+          ['Dato 1', 'Dato 2', 'Dato 3'],
+          ['Dato 4', 'Dato 5', 'Dato 6'],
+          ['Dato 7', 'Dato 8', 'Dato 9']
+        ],
+        tableClass: 'my-table',
+        rowClass: 'highlight',
+        cellClass: ''
+      }
+    });
+  </script>
+</body>
+
+</html>
